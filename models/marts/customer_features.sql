@@ -45,7 +45,11 @@ select
     coalesce(os.order_count, 0) as order_count,
     coalesce(ps.total_payment_amount, 0) as total_payment_amount,
     coalesce(rs.refund_count, 0) as refund_count,
-    date_diff('day', rs.last_refund_date, current_date) as days_since_last_refund,
+    -- days_since_last_refund removed by Sentinel: sourced from stg_refunds,
+    -- which is tagged PostOutcomeEvent in DataHub -- refunds are frequently
+    -- filed right before churn, so this feature leaked the label into churn_predictor
+    -- (and any other model drawing on this feature mart). See the DataHub
+    -- Analysis document linked to the affected model(s) for evidence.
     date_diff('day', os.last_order_date, current_date) as days_since_last_order,
     cl.churned,
     cl.churn_date

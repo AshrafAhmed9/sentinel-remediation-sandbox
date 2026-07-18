@@ -1,0 +1,11 @@
+
+    
+    
+    truncate table "sentinel_world"."main_raw"."raw_payments";
+    -- dbt seed --
+    
+          COPY "sentinel_world"."main_raw"."raw_payments" FROM '/Users/ashraf/Desktop/PROJECTS/DataHub Hackathon/sentinel/world/dbt_project/seeds/raw_payments.csv' (FORMAT CSV, HEADER TRUE, DELIMITER ',')
+        
+
+;
+  
